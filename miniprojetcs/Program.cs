@@ -27,7 +27,7 @@ class Program
     }
 
     // Procédure qui affiche le menu principal
-    static void AfficherMenu()
+    static void AfficherMenuPrincipal()
     {
         Console.WriteLine("********************");
         Console.WriteLine(" MENU PRINCIPAL ");
@@ -67,7 +67,7 @@ class Program
         {
             string name = employee[result];
             Console.WriteLine("\nBonjour " + name + "\n");
-            AfficherMenu(); // Appel de la procedure AfficherMenu()
+            AfficherMenuPrincipal(); // Appel de la procedure AfficherMenu()
             
         }
         
