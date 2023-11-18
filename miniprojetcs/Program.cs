@@ -101,6 +101,10 @@ class Program
 
     static void AfficherPanier(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier) 
     {
+        Console.WriteLine("\n\n********************");
+        Console.WriteLine("  VOTRE PANIER  ");
+        Console.WriteLine("********************");
+
         foreach (string article in panier)
         {
             int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
