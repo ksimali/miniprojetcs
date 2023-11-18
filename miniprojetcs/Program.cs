@@ -162,7 +162,7 @@ class Program
         if (result != -1)
         {
             string name = employee[result];
-            Console.WriteLine("\nBonjour " + name + "\n");
+            Console.WriteLine("\nBonjour, " + name );
 
             bool close = false;
 
