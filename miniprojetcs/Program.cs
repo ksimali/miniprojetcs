@@ -63,7 +63,7 @@ class Program
     }
 
 
-   
+    // Procédure d'affichage de tous les articles
     static void AfficherArticles()
     {
         Console.WriteLine("\n\n********************");
@@ -79,6 +79,7 @@ class Program
         Console.WriteLine("L3: Laptop Acer - 250.99$");
     }
 
+    // Fonction d'ajout d'un article
     static string AjoutArticle(string[] codeArticle)
     {
         AfficherArticles(); // Appel de la fonction permettant d'afficher les articles
@@ -99,6 +100,7 @@ class Program
         return article;
     }
 
+    // Fonction affichage du Panier
     static void AfficherPanier(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier) 
     {
         Console.WriteLine("\n\n********************");
@@ -112,6 +114,7 @@ class Program
         }
     }
 
+    // Fonction de suppression d'un article du panier
     static void RetirerDansPanier(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier)
     {
         // Appel de la fonction permettant d'afficher les elements du panier
