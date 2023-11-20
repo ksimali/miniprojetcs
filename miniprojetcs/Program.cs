@@ -144,6 +144,28 @@ class Program
         panier.Remove(article);
     }
 
+    // Fonction de facturation
+    static void Facturation(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier)
+    {
+        Console.WriteLine("\n\n***************************************");
+        Console.WriteLine("**             FACTURE               **");
+        Console.WriteLine("***************************************");
+
+        if (panier != null && panier.Count == 0)
+        {
+            Console.WriteLine(" Aucun article dans le panier ! ");
+        }
+        else
+        {
+            foreach (string article in panier)
+            {
+                int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
+                Console.WriteLine("- "+ codeArticle[index] + ": " + nomArticle[index] + "           " + prixArticle[index] + "$");
+            }
+        }
+
+    }
+
     // Methode principale
     static void Main(string[] args)
     {
@@ -193,8 +215,8 @@ class Program
                 switch (choix)
                 {
                     case 0:
-                        Console.WriteLine("Hello World Zero! ");
-                        close = true;
+                        // Appel de la fonction pour la facturation
+                        Facturation(codeArticle, nomArticle, prixArticle, panier);
                         break;
                     case 1:
                         // Appel de la fonction pour l'ajout de l'article
