@@ -145,12 +145,14 @@ class Program
     }
 
     // Fonction de facturation
-    static void Facturation(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier)
+    static void Facturation(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier, string name)
     {
-        Console.WriteLine("\n\n***************************************");
-        Console.WriteLine("**             FACTURE               **");
-        Console.WriteLine("***************************************");
-
+        string stars = new string('*', 39);
+        string space = new string(' ', 14);
+        Console.WriteLine($"\n\n{stars}");
+        Console.WriteLine($"**{space}FACTURE{space}**");
+        Console.WriteLine(stars);
+        
         if (panier != null && panier.Count == 0)
         {
             Console.WriteLine(" Aucun article dans le panier ! ");
@@ -160,10 +162,23 @@ class Program
             foreach (string article in panier)
             {
                 int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
-                Console.WriteLine($"- {codeArticle[index]} : { nomArticle[index]}{ prixArticle[index]}$");
+                Console.WriteLine($"- {codeArticle[index]} : { nomArticle[index].PadRight(25,' ')}{ prixArticle[index]}$");
             }
         }
-
+        string dash = new string('-', 39);
+        Console.WriteLine("Rabais mystère:".PadLeft(25,' '));
+        Console.WriteLine(dash);
+        Console.WriteLine($"Sous-total:".PadLeft(25, ' '));
+        Console.WriteLine($"TPS:".PadLeft(25, ' '));
+        Console.WriteLine($"TVQ:".PadLeft(25, ' '));
+        Console.WriteLine($"Total:".PadLeft(25, ' '));
+        Console.WriteLine(stars);
+        Console.WriteLine($"Vous avez été servi par {name}");
+        // Get the current date.
+        DateTime thisDay = DateTime.Now;
+        Console.WriteLine("Date: " + thisDay.ToString("aaaa-MM-jj"));
+        Console.WriteLine("Heure: " + thisDay.ToString("HH:mm:ss"));
+        Console.WriteLine(stars);
     }
 
     // Methode principale
@@ -216,7 +231,7 @@ class Program
                 {
                     case 0:
                         // Appel de la fonction pour la facturation
-                        Facturation(codeArticle, nomArticle, prixArticle, panier);
+                        Facturation(codeArticle, nomArticle, prixArticle, panier, name);
                         break;
                     case 1:
                         // Appel de la fonction pour l'ajout de l'article
