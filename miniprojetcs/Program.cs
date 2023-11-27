@@ -190,7 +190,7 @@ class Program
         Console.WriteLine($"Vous avez été servi par {name}");
         // Get the current date.
         DateTime thisDay = DateTime.Now;
-        Console.WriteLine("Date: " + thisDay.ToString("aaaa-MM-jj"));
+        Console.WriteLine("Date: " + thisDay.ToString("yyyy-MM-dd"));
         Console.WriteLine("Heure: " + thisDay.ToString("HH:mm:ss"));
         Console.WriteLine(stars);
     }
