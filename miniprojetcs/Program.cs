@@ -148,9 +148,9 @@ class Program
     // Fonction de facturation
     static void Facturation(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier, string name)
     {
-        string stars = new string('*', 39);
-        string dash = new string('-', 39);
-        string space = new string(' ', 14);
+        string stars = new string('*', 37);
+        string dash = new string('-', 37);
+        string space = new string(' ', 13);
         Console.WriteLine($"\n\n{stars}");
         Console.WriteLine($"**{space}FACTURE{space}**");
         Console.WriteLine(stars);
