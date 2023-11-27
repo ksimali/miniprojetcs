@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
 namespace miniprojetcs;
 
@@ -164,22 +165,27 @@ class Program
         {
             foreach (string article in panier)
             {
-                int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
-                Console.WriteLine($"- {codeArticle[index]} : { nomArticle[index].PadRight(25,' ')}{ prixArticle[index]}$");
+                // Verifie que le code article existe dans le tableau codeArticle et retourne l'index.
+                int index = SearchString(codeArticle, article);
+
+                // Affichage des articles de la facture.
+                Console.WriteLine("- " + codeArticle[index]+ ": " + nomArticle[index].PadRight(24,' ') + prixArticle[index]+"$");
                 sstotal += prixArticle[index];
             }
         }
-        double rabais = 0;
+        // Déclaration des variables de la facture(le rabais, le sous-total, la tps, la tvq et le total)
+        double rabais = Math.Round(0.25 * sstotal, 2);
         sstotal = Math.Round(sstotal - rabais, 2);
         double tps = Math.Round(sstotal * 0.05, 2);
         double tvq = Math.Round(sstotal * 0.09975, 2);
-        double total = sstotal + tps + tvq;
-        Console.WriteLine("Rabais mystère".PadLeft(24,' ') + $":".PadRight(7, ' ') + "$");
+        double total = Math.Round(sstotal + tps + tvq, 2);
+        // Affichage des parties de la facture
+        Console.WriteLine("Rabais mystère".PadLeft(24,' ') + ":".PadRight(6, ' ') + rabais + "$");
         Console.WriteLine(dash);
-        Console.WriteLine($"Sous-total".PadLeft(24, ' ') +$":".PadRight(7, ' ') + sstotal + "$");
-        Console.WriteLine($"TPS".PadLeft(24, ' ') + $":".PadRight(7, ' ') + tps + "$");
-        Console.WriteLine($"TVQ".PadLeft(24, ' ') + $":".PadRight(7, ' ') + tvq + "$");
-        Console.WriteLine($"Total".PadLeft(24, ' ') + $":".PadRight(7, ' ') + total + "$");
+        Console.WriteLine("Sous-total".PadLeft(24, ' ') +":".PadRight(6, ' ') + sstotal + "$");
+        Console.WriteLine("TPS".PadLeft(24, ' ') + ":".PadRight(6, ' ') + tps + "$");
+        Console.WriteLine("TVQ".PadLeft(24, ' ') + ":".PadRight(6, ' ') + tvq + "$");
+        Console.WriteLine("Total".PadLeft(24, ' ') + ":".PadRight(6, ' ') + total + "$");
         Console.WriteLine(stars);
         Console.WriteLine($"Vous avez été servi par {name}");
         // Get the current date.
