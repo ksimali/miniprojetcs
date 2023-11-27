@@ -148,11 +148,14 @@ class Program
     static void Facturation(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier, string name)
     {
         string stars = new string('*', 39);
+        string dash = new string('-', 39);
         string space = new string(' ', 14);
         Console.WriteLine($"\n\n{stars}");
         Console.WriteLine($"**{space}FACTURE{space}**");
         Console.WriteLine(stars);
-        
+
+        double sstotal = 0;
+
         if (panier != null && panier.Count == 0)
         {
             Console.WriteLine(" Aucun article dans le panier ! ");
@@ -163,15 +166,20 @@ class Program
             {
                 int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
                 Console.WriteLine($"- {codeArticle[index]} : { nomArticle[index].PadRight(25,' ')}{ prixArticle[index]}$");
+                sstotal += prixArticle[index];
             }
         }
-        string dash = new string('-', 39);
-        Console.WriteLine("Rabais mystère:".PadLeft(25,' '));
+        double rabais = 0;
+        sstotal = Math.Round(sstotal - rabais, 2);
+        double tps = Math.Round(sstotal * 0.05, 2);
+        double tvq = Math.Round(sstotal * 0.09975, 2);
+        double total = sstotal + tps + tvq;
+        Console.WriteLine("Rabais mystère".PadLeft(24,' ') + $":".PadRight(7, ' ') + "$");
         Console.WriteLine(dash);
-        Console.WriteLine($"Sous-total:".PadLeft(25, ' '));
-        Console.WriteLine($"TPS:".PadLeft(25, ' '));
-        Console.WriteLine($"TVQ:".PadLeft(25, ' '));
-        Console.WriteLine($"Total:".PadLeft(25, ' '));
+        Console.WriteLine($"Sous-total".PadLeft(24, ' ') +$":".PadRight(7, ' ') + sstotal + "$");
+        Console.WriteLine($"TPS".PadLeft(24, ' ') + $":".PadRight(7, ' ') + tps + "$");
+        Console.WriteLine($"TVQ".PadLeft(24, ' ') + $":".PadRight(7, ' ') + tvq + "$");
+        Console.WriteLine($"Total".PadLeft(24, ' ') + $":".PadRight(7, ' ') + total + "$");
         Console.WriteLine(stars);
         Console.WriteLine($"Vous avez été servi par {name}");
         // Get the current date.
