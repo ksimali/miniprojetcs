@@ -160,7 +160,7 @@ class Program
             foreach (string article in panier)
             {
                 int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
-                Console.WriteLine("- "+ codeArticle[index] + ": " + nomArticle[index] + "           " + prixArticle[index] + "$");
+                Console.WriteLine($"- {codeArticle[index]} : { nomArticle[index]}{ prixArticle[index]}$");
             }
         }
 
