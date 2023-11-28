@@ -275,6 +275,7 @@ class Program
                             {
                                 close = true;
                                 test = true;
+                                Console.Write("Appuyer sur une touche pour terminer.");
                             }
                             else if (continuer == "O")
                             {
