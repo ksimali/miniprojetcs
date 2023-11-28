@@ -12,8 +12,14 @@ class Program
         int code;
         // Saisie d'un nombre par l'utilisateur
         Console.Write("Veuillez saisir votre code d'employé: ");
-        code = int.Parse(Console.ReadLine());
-
+        try
+        {
+            code = int.Parse(Console.ReadLine());
+        }
+        catch (Exception e)
+        {
+            code = -1;
+        }
         return code;
     }
     // Fonction de recherche d'un element dans un tableau
@@ -45,8 +51,14 @@ class Program
     public static int Choix()
     {
         Console.Write("Votre choix: ");
-        int choix = int.Parse(Console.ReadLine());
-
+        int choix;
+        try
+        {
+            choix = int.Parse(Console.ReadLine());
+        } catch(Exception e)
+        {
+            choix = -1;
+        }
         return choix;
     }
 
@@ -188,11 +200,13 @@ class Program
         Console.WriteLine("Total".PadLeft(24, ' ') + ":".PadRight(6, ' ') + total + "$");
         Console.WriteLine(stars);
         Console.WriteLine($"Vous avez été servi par {name}");
-        // Get the current date.
+        // Recupere la date courante.
         DateTime thisDay = DateTime.Now;
         Console.WriteLine("Date: " + thisDay.ToString("yyyy-MM-dd"));
         Console.WriteLine("Heure: " + thisDay.ToString("HH:mm:ss"));
         Console.WriteLine(stars);
+        // Vider le panier
+        panier.Clear();
     }
 
     // Methode principale
@@ -246,6 +260,26 @@ class Program
                     case 0:
                         // Appel de la fonction pour la facturation
                         Facturation(codeArticle, nomArticle, prixArticle, panier, name);
+                        bool test = false;
+                        Console.WriteLine("Voulez-vous continuer? O/N");
+                        do
+                        {
+                            String continuer = Console.ReadLine();
+                            if (continuer == "N")
+                            {
+                                close = true;
+                                test = true;
+                            }
+                            else if (continuer == "O")
+                            {
+                                close = false;
+                                test = true;
+                            } else
+                            {
+                                Console.WriteLine("Choix invalide!... Votre choix: ");
+                            }
+                        } while (!test);
+                        
                         break;
                     case 1:
                         // Appel de la fonction pour l'ajout de l'article
