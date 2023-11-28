@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
 namespace miniprojetcs;
 
@@ -63,7 +64,7 @@ class Program
     }
 
 
-   
+    // Procédure d'affichage de tous les articles
     static void AfficherArticles()
     {
         Console.WriteLine("\n\n********************");
@@ -79,6 +80,7 @@ class Program
         Console.WriteLine("L3: Laptop Acer - 250.99$");
     }
 
+    // Fonction d'ajout d'un article
     static string AjoutArticle(string[] codeArticle)
     {
         AfficherArticles(); // Appel de la fonction permettant d'afficher les articles
@@ -99,19 +101,29 @@ class Program
         return article;
     }
 
+    // Fonction affichage du Panier
     static void AfficherPanier(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier) 
     {
         Console.WriteLine("\n\n********************");
         Console.WriteLine("  VOTRE PANIER  ");
         Console.WriteLine("********************");
 
-        foreach (string article in panier)
+        if (panier != null && panier.Count == 0)
         {
-            int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
-            Console.WriteLine(codeArticle[index] + ": "+  nomArticle[index]+  " - "+ prixArticle[index]+ "$");
+            Console.WriteLine(" Aucun article dans le panier ! ");
         }
+        else
+        {
+            foreach (string article in panier)
+            {
+                int index = SearchString(codeArticle, article); // Verifie que le code article existe dans le tableau codeArticle et retourne l'index
+                Console.WriteLine(codeArticle[index] + ": " + nomArticle[index] + " - " + prixArticle[index] + "$");
+            }
+        }
+        
     }
 
+    // Fonction de suppression d'un article du panier
     static void RetirerDansPanier(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier)
     {
         // Appel de la fonction permettant d'afficher les elements du panier
@@ -131,6 +143,56 @@ class Program
         } while (test == false);
         // Methode permettant de supprimer un element dans une liste
         panier.Remove(article);
+    }
+
+    // Fonction de facturation
+    static void Facturation(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier, string name)
+    {
+        string stars = new string('*', 37);
+        string dash = new string('-', 37);
+        string space = new string(' ', 13);
+        Console.WriteLine($"\n\n{stars}");
+        Console.WriteLine($"**{space}FACTURE{space}**");
+        Console.WriteLine(stars);
+
+        double sstotal = 0;
+
+        if (panier != null && panier.Count == 0)
+        {
+            Console.WriteLine(" Aucun article dans le panier ! ");
+        }
+        else
+        {
+            foreach (string article in panier)
+            {
+                // Verifie que le code article existe dans le tableau codeArticle et retourne l'index.
+                int index = SearchString(codeArticle, article);
+
+                // Affichage des articles de la facture.
+                Console.WriteLine("- " + codeArticle[index]+ ": " + nomArticle[index].PadRight(24,' ') + prixArticle[index]+"$");
+                sstotal += prixArticle[index];
+            }
+        }
+        // Déclaration des variables de la facture(le rabais, le sous-total, la tps, la tvq et le total)
+        double rabais = Math.Round(0.25 * sstotal, 2);
+        sstotal = Math.Round(sstotal - rabais, 2);
+        double tps = Math.Round(sstotal * 0.05, 2);
+        double tvq = Math.Round(sstotal * 0.09975, 2);
+        double total = Math.Round(sstotal + tps + tvq, 2);
+        // Affichage des parties de la facture
+        Console.WriteLine("Rabais mystère".PadLeft(24,' ') + ":".PadRight(6, ' ') + rabais + "$");
+        Console.WriteLine(dash);
+        Console.WriteLine("Sous-total".PadLeft(24, ' ') +":".PadRight(6, ' ') + sstotal + "$");
+        Console.WriteLine("TPS".PadLeft(24, ' ') + ":".PadRight(6, ' ') + tps + "$");
+        Console.WriteLine("TVQ".PadLeft(24, ' ') + ":".PadRight(6, ' ') + tvq + "$");
+        Console.WriteLine("Total".PadLeft(24, ' ') + ":".PadRight(6, ' ') + total + "$");
+        Console.WriteLine(stars);
+        Console.WriteLine($"Vous avez été servi par {name}");
+        // Get the current date.
+        DateTime thisDay = DateTime.Now;
+        Console.WriteLine("Date: " + thisDay.ToString("yyyy-MM-dd"));
+        Console.WriteLine("Heure: " + thisDay.ToString("HH:mm:ss"));
+        Console.WriteLine(stars);
     }
 
     // Methode principale
@@ -162,7 +224,7 @@ class Program
         if (result != -1)
         {
             string name = employee[result];
-            Console.WriteLine("\nBonjour " + name + "\n");
+            Console.WriteLine("\nBonjour, " + name );
 
             bool close = false;
 
@@ -182,8 +244,8 @@ class Program
                 switch (choix)
                 {
                     case 0:
-                        Console.WriteLine("Hello World Zero! ");
-                        close = true;
+                        // Appel de la fonction pour la facturation
+                        Facturation(codeArticle, nomArticle, prixArticle, panier, name);
                         break;
                     case 1:
                         // Appel de la fonction pour l'ajout de l'article
