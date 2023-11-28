@@ -186,7 +186,9 @@ class Program
             }
         }
         // Déclaration des variables de la facture(le rabais, le sous-total, la tps, la tvq et le total)
-        double rabais = Math.Round(0.25 * sstotal, 2);
+
+        double trm = 0.25;// taux de rabais mystère de 25% avec 50% de chance
+        double rabais = Math.Round(trm * sstotal, 2);
         sstotal = Math.Round(sstotal - rabais, 2);
         double tps = Math.Round(sstotal * 0.05, 2);
         double tvq = Math.Round(sstotal * 0.09975, 2);
