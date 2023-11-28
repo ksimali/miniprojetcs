@@ -160,6 +160,7 @@ class Program
     // Fonction de facturation
     static void Facturation(string[] codeArticle, string[] nomArticle, double[] prixArticle, List<string> panier, string name)
     {
+        //Afficher Entête de la Facture
         string stars = new string('*', 37);
         string dash = new string('-', 37);
         string space = new string(' ', 13);
@@ -167,8 +168,10 @@ class Program
         Console.WriteLine($"**{space}FACTURE{space}**");
         Console.WriteLine(stars);
 
+        // Declaration & initialisation de la variable sstotal à zero
         double sstotal = 0;
 
+        // Traitement de l'affichage des éléments de facture
         if (panier != null && panier.Count == 0)
         {
             Console.WriteLine(" Aucun article dans le panier ! ");
@@ -185,10 +188,11 @@ class Program
                 sstotal += prixArticle[index];
             }
         }
+
         // Déclaration des variables de la facture(le rabais, le sous-total, la tps, la tvq et le total)
 
         double trm = 0.25;// taux de rabais mystère de 25% avec 50% de chance
-        double rabais = Math.Round(trm * sstotal, 2);
+        double rabais = Math.Round(trm * sstotal, 2); // valeur de la variable arrondis a deux chiffres arpès la virgule
         sstotal = Math.Round(sstotal - rabais, 2);
         double tps = Math.Round(sstotal * 0.05, 2);
         double tvq = Math.Round(sstotal * 0.09975, 2);
@@ -202,7 +206,7 @@ class Program
         Console.WriteLine("Total".PadLeft(24, ' ') + ":".PadRight(6, ' ') + total + "$");
         Console.WriteLine(stars);
         Console.WriteLine($"Vous avez été servi par {name}");
-        // Recupere la date courante.
+        // Récupere la date et l'heure courante.
         DateTime thisDay = DateTime.Now;
         Console.WriteLine("Date: " + thisDay.ToString("yyyy-MM-dd"));
         Console.WriteLine("Heure: " + thisDay.ToString("HH:mm:ss"));
